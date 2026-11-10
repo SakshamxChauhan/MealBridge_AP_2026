@@ -1,0 +1,25 @@
+useQuery() is a hook from TanStack React Query.
+
+It helps you:
+- Fetch data from APIs.
+- Track loading states.
+- Track errors.
+- Cache previously fetched data.
+- Avoid manually managing multiple states for server data.
+
+
+location?.pathname uses optional chaining. It safely accesses pathname if location is not null or undefined. In this particular case, location is normally always available, so location.pathname would also work.
+
+
+What is createBrowserRouter()?
+It creates a router configuration for your application.
+
+It tells React Router:
+- Which URLs exist.
+- Which component should render for each URL.
+- Which routes have protected access.
+- Which routes need data before rendering.
+- What error page to show.
+Think of it as the website's navigation map.
+
+You later connect this router to your application using RouterProvider

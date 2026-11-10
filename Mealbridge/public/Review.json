@@ -1,0 +1,58 @@
+[
+  {
+    "_id": "6898300760fd2a93ab5f5fe1",
+    "name": "Amin Rahman",
+    "photo": "https://i.ibb.co.com/nM7D3DQz/xander-DY3-8-G-Ow-WU-unsplash.jpg",
+    "rating": 5,
+    "review": "An amazing platform for food donations. Many people in my area have benefited from it."
+  },
+  {
+    "_id": "6898300760fd2a93ab5f5fe2",
+    "name": "Farhan Chowdhury",
+    "photo": "https://i.ibb.co.com/WpnnYhMg/ethan-rougon-u-ZBCg-RDKsko-unsplash.jpg",
+    "rating": 4,
+    "review": "The system is easy to use and the delivery was quick. A few small improvements could make it even better."
+  },
+  {
+    "_id": "6898300760fd2a93ab5f5fe3",
+    "name": "Sadik Kayem",
+    "photo": "https://i.ibb.co.com/ymJKybhk/kouki-walim-BFcsn-GHNSU8-unsplash.jpg",
+    "rating": 5,
+    "review": "I regularly donate food here. I truly appreciate the team's hard work."
+  },
+  {
+    "_id": "6898300760fd2a93ab5f5fe4",
+    "name": "Kamrul Hasan",
+    "photo": "https://i.ibb.co.com/nNC75Ld9/sheraz-manzoor-ny-Cu-Ql2-Kv9-Y-unsplash.jpg",
+    "rating": 4,
+    "review": "I receive updates quickly, which assures me that the food is reaching to the right people."
+  },
+  {
+    "_id": "6898300760fd2a93ab5f5fe5",
+    "name": "Nuhas Japlong",
+    "photo": "https://i.ibb.co.com/B2VtXq2r/midas-hofstra-a6-PMA5-JEm-WE-unsplash.jpg",
+    "rating": 5,
+    "review": "Through this platform, I was able to help many people in a short time. Thank you."
+  },
+  {
+    "_id": "6898300760fd2a93ab5f5fe6",
+    "name": "Tareq Mahmud",
+    "photo": "https://i.ibb.co.com/Kxbp5Nmf/abdullah-ali-VKUxmyn3-TYE-unsplash.jpg",
+    "rating": 5,
+    "review": "The food collection and distribution process is very well managed. Extremely satisfied."
+  },
+  {
+    "_id": "6898300760fd2a93ab5f5fe7",
+    "name": "Siyam Ahmed",
+    "photo": "https://i.ibb.co.com/q3JYL8KL/pexels-wendywei-1656684.jpg",
+    "rating": 4,
+    "review": "The website design and features are user-friendly, making food donation very easy."
+  },
+  {
+    "_id": "6898300760fd2a93ab5f5fe8",
+    "name": "Rafiq Islam",
+    "photo": "https://i.ibb.co.com/nMZvFPpn/pexels-cottonbro-9950569.jpg",
+    "rating": 5,
+    "review": "I highly recommend this platform to anyone who wants to help people in need."
+  }
+]
