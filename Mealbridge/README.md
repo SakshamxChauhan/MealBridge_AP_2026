@@ -1,4 +1,4 @@
-# 🍽️ ShareBite - Community Food Sharing and Surplus Reduction Platform
+# 🍽️ MealBridge - Community Food Sharing and Surplus Reduction Platform
 
 A full-stack web application built with **React**, **Node.js**, **Express**, **MongoDB**, and **Firebase** that allows users to share surplus food, reduce waste, and help those in need.
 
