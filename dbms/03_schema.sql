@@ -8,7 +8,7 @@ CREATE TABLE users (
     email VARCHAR(150) UNIQUE NOT NULL,
     role VARCHAR(20) NOT NULL CHECK (role IN ('DONOR', 'RECIPIENT', 'ADMIN')),
     city VARCHAR(80) NOT NULL,
-    capacity INT DEFAULT 0,
+    capacity INT NOT NULL DEFAULT 0 CHECK (capacity >= 0),
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
@@ -20,7 +20,8 @@ CREATE TABLE food_listings (
     quantity_kg NUMERIC(8,2) NOT NULL CHECK (quantity_kg > 0),
     status VARCHAR(20) NOT NULL DEFAULT 'AVAILABLE' CHECK (status IN ('AVAILABLE', 'CLAIMED', 'DELIVERED', 'EXPIRED')),
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    expires_at TIMESTAMPTZ NOT NULL
+    expires_at TIMESTAMPTZ NOT NULL,
+    CONSTRAINT chk_listing_expiry CHECK (expires_at > created_at)
 );
 
 CREATE TABLE claims (
@@ -39,6 +40,40 @@ CREATE TABLE delivery_logs (
     notes TEXT
 );
 
-CREATE INDEX idx_listings_city_status ON food_listings (status, created_at DESC);
+CREATE OR REPLACE FUNCTION sync_listing_status_on_claim()
+RETURNS TRIGGER AS $$
+DECLARE
+    current_status VARCHAR(20);
+    listing_expiry TIMESTAMPTZ;
+BEGIN
+    SELECT status, expires_at INTO current_status, listing_expiry
+    FROM mealbridge_ap.food_listings
+    WHERE listing_id = NEW.listing_id
+    FOR UPDATE;
+
+    IF current_status <> 'AVAILABLE' THEN
+        RAISE EXCEPTION 'Listing % is not available (current status: %)', NEW.listing_id, current_status;
+    END IF;
+
+    IF listing_expiry <= NOW() THEN
+        UPDATE mealbridge_ap.food_listings SET status = 'EXPIRED' WHERE listing_id = NEW.listing_id;
+        RAISE EXCEPTION 'Listing % has already expired', NEW.listing_id;
+    END IF;
+
+    UPDATE mealbridge_ap.food_listings
+    SET status = 'CLAIMED'
+    WHERE listing_id = NEW.listing_id;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_sync_listing_on_claim
+BEFORE INSERT ON claims
+FOR EACH ROW
+EXECUTE FUNCTION sync_listing_status_on_claim();
+
+CREATE INDEX idx_users_city_role ON users (city, role);
+CREATE INDEX idx_listings_available ON food_listings (created_at DESC) INCLUDE (donor_id, food_item, quantity_kg) WHERE status = 'AVAILABLE';
 CREATE INDEX idx_listings_donor ON food_listings (donor_id);
 CREATE INDEX idx_claims_recipient ON claims (recipient_id, claimed_at DESC);
