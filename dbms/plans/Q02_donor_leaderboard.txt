@@ -1,0 +1,77 @@
+--- Run 1 ---
+Limit  (cost=447.52..447.55 rows=10 width=45) (actual time=6.050..6.053 rows=10 loops=1)
+  Buffers: shared hit=161
+  ->  Sort  (cost=447.52..452.52 rows=2000 width=45) (actual time=6.050..6.051 rows=10 loops=1)
+        Sort Key: (sum(fl.quantity_kg)) DESC
+        Sort Method: top-N heapsort  Memory: 25kB
+        Buffers: shared hit=161
+        ->  HashAggregate  (cost=379.31..404.31 rows=2000 width=45) (actual time=5.570..5.816 rows=999 loops=1)
+              Group Key: u.user_id
+              Batches: 1  Memory Usage: 625kB
+              Buffers: shared hit=158
+              ->  Hash Join  (cost=69.00..329.31 rows=10000 width=18) (actual time=0.558..3.733 rows=10000 loops=1)
+                    Hash Cond: (fl.donor_id = u.user_id)
+                    Buffers: shared hit=158
+                    ->  Seq Scan on food_listings fl  (cost=0.00..234.00 rows=10000 width=9) (actual time=0.004..1.356 rows=10000 loops=1)
+                          Buffers: shared hit=134
+                    ->  Hash  (cost=44.00..44.00 rows=2000 width=13) (actual time=0.539..0.540 rows=2000 loops=1)
+                          Buckets: 2048  Batches: 1  Memory Usage: 105kB
+                          Buffers: shared hit=24
+                          ->  Seq Scan on users u  (cost=0.00..44.00 rows=2000 width=13) (actual time=0.003..0.328 rows=2000 loops=1)
+                                Buffers: shared hit=24
+Planning:
+  Buffers: shared hit=189 read=3
+Planning Time: 1.332 ms
+Execution Time: 6.161 ms
+
+--- Run 2 ---
+Limit  (cost=447.52..447.55 rows=10 width=45) (actual time=5.030..5.032 rows=10 loops=1)
+  Buffers: shared hit=161
+  ->  Sort  (cost=447.52..452.52 rows=2000 width=45) (actual time=5.030..5.031 rows=10 loops=1)
+        Sort Key: (sum(fl.quantity_kg)) DESC
+        Sort Method: top-N heapsort  Memory: 25kB
+        Buffers: shared hit=161
+        ->  HashAggregate  (cost=379.31..404.31 rows=2000 width=45) (actual time=4.825..4.933 rows=999 loops=1)
+              Group Key: u.user_id
+              Batches: 1  Memory Usage: 625kB
+              Buffers: shared hit=158
+              ->  Hash Join  (cost=69.00..329.31 rows=10000 width=18) (actual time=0.464..3.177 rows=10000 loops=1)
+                    Hash Cond: (fl.donor_id = u.user_id)
+                    Buffers: shared hit=158
+                    ->  Seq Scan on food_listings fl  (cost=0.00..234.00 rows=10000 width=9) (actual time=0.004..0.832 rows=10000 loops=1)
+                          Buffers: shared hit=134
+                    ->  Hash  (cost=44.00..44.00 rows=2000 width=13) (actual time=0.450..0.451 rows=2000 loops=1)
+                          Buckets: 2048  Batches: 1  Memory Usage: 105kB
+                          Buffers: shared hit=24
+                          ->  Seq Scan on users u  (cost=0.00..44.00 rows=2000 width=13) (actual time=0.004..0.246 rows=2000 loops=1)
+                                Buffers: shared hit=24
+Planning:
+  Buffers: shared hit=192
+Planning Time: 0.877 ms
+Execution Time: 5.106 ms
+
+--- Run 3 ---
+Limit  (cost=447.52..447.55 rows=10 width=45) (actual time=3.608..3.610 rows=10 loops=1)
+  Buffers: shared hit=161
+  ->  Sort  (cost=447.52..452.52 rows=2000 width=45) (actual time=3.608..3.608 rows=10 loops=1)
+        Sort Key: (sum(fl.quantity_kg)) DESC
+        Sort Method: top-N heapsort  Memory: 25kB
+        Buffers: shared hit=161
+        ->  HashAggregate  (cost=379.31..404.31 rows=2000 width=45) (actual time=3.246..3.439 rows=999 loops=1)
+              Group Key: u.user_id
+              Batches: 1  Memory Usage: 625kB
+              Buffers: shared hit=158
+              ->  Hash Join  (cost=69.00..329.31 rows=10000 width=18) (actual time=0.204..2.163 rows=10000 loops=1)
+                    Hash Cond: (fl.donor_id = u.user_id)
+                    Buffers: shared hit=158
+                    ->  Seq Scan on food_listings fl  (cost=0.00..234.00 rows=10000 width=9) (actual time=0.002..0.621 rows=10000 loops=1)
+                          Buffers: shared hit=134
+                    ->  Hash  (cost=44.00..44.00 rows=2000 width=13) (actual time=0.197..0.198 rows=2000 loops=1)
+                          Buckets: 2048  Batches: 1  Memory Usage: 105kB
+                          Buffers: shared hit=24
+                          ->  Seq Scan on users u  (cost=0.00..44.00 rows=2000 width=13) (actual time=0.002..0.111 rows=2000 loops=1)
+                                Buffers: shared hit=24
+Planning:
+  Buffers: shared hit=192
+Planning Time: 0.422 ms
+Execution Time: 3.645 ms

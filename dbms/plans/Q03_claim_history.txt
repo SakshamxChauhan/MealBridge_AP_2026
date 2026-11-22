@@ -1,0 +1,68 @@
+--- Run 1 ---
+Nested Loop Left Join  (cost=4.90..137.40 rows=7 width=35) (actual time=0.013..0.059 rows=7 loops=1)
+  Buffers: shared hit=48
+  ->  Nested Loop  (cost=4.62..83.31 rows=7 width=27) (actual time=0.010..0.040 rows=7 loops=1)
+        Buffers: shared hit=30
+        ->  Bitmap Heap Scan on claims c  (cost=4.34..25.19 rows=7 width=8) (actual time=0.007..0.015 rows=7 loops=1)
+              Recheck Cond: (recipient_id = 101)
+              Heap Blocks: exact=7
+              Buffers: shared hit=9
+              ->  Bitmap Index Scan on idx_claims_recipient  (cost=0.00..4.33 rows=7 width=0) (actual time=0.005..0.006 rows=7 loops=1)
+                    Index Cond: (recipient_id = 101)
+                    Buffers: shared hit=2
+        ->  Index Scan using food_listings_pkey on food_listings fl  (cost=0.29..8.30 rows=1 width=27) (actual time=0.003..0.003 rows=1 loops=7)
+              Index Cond: (listing_id = c.listing_id)
+              Buffers: shared hit=21
+  ->  Index Scan using delivery_logs_claim_id_key on delivery_logs dl  (cost=0.28..7.73 rows=1 width=12) (actual time=0.003..0.003 rows=1 loops=7)
+        Index Cond: (claim_id = c.claim_id)
+        Buffers: shared hit=18
+Planning:
+  Buffers: shared hit=322
+Planning Time: 0.592 ms
+Execution Time: 0.086 ms
+
+--- Run 2 ---
+Nested Loop Left Join  (cost=4.90..137.40 rows=7 width=35) (actual time=0.030..0.167 rows=7 loops=1)
+  Buffers: shared hit=48
+  ->  Nested Loop  (cost=4.62..83.31 rows=7 width=27) (actual time=0.024..0.111 rows=7 loops=1)
+        Buffers: shared hit=30
+        ->  Bitmap Heap Scan on claims c  (cost=4.34..25.19 rows=7 width=8) (actual time=0.019..0.040 rows=7 loops=1)
+              Recheck Cond: (recipient_id = 101)
+              Heap Blocks: exact=7
+              Buffers: shared hit=9
+              ->  Bitmap Index Scan on idx_claims_recipient  (cost=0.00..4.33 rows=7 width=0) (actual time=0.015..0.016 rows=7 loops=1)
+                    Index Cond: (recipient_id = 101)
+                    Buffers: shared hit=2
+        ->  Index Scan using food_listings_pkey on food_listings fl  (cost=0.29..8.30 rows=1 width=27) (actual time=0.009..0.009 rows=1 loops=7)
+              Index Cond: (listing_id = c.listing_id)
+              Buffers: shared hit=21
+  ->  Index Scan using delivery_logs_claim_id_key on delivery_logs dl  (cost=0.28..7.73 rows=1 width=12) (actual time=0.008..0.008 rows=1 loops=7)
+        Index Cond: (claim_id = c.claim_id)
+        Buffers: shared hit=18
+Planning:
+  Buffers: shared hit=322
+Planning Time: 1.269 ms
+Execution Time: 0.226 ms
+
+--- Run 3 ---
+Nested Loop Left Join  (cost=4.90..137.40 rows=7 width=35) (actual time=0.039..0.193 rows=7 loops=1)
+  Buffers: shared hit=48
+  ->  Nested Loop  (cost=4.62..83.31 rows=7 width=27) (actual time=0.029..0.124 rows=7 loops=1)
+        Buffers: shared hit=30
+        ->  Bitmap Heap Scan on claims c  (cost=4.34..25.19 rows=7 width=8) (actual time=0.024..0.053 rows=7 loops=1)
+              Recheck Cond: (recipient_id = 101)
+              Heap Blocks: exact=7
+              Buffers: shared hit=9
+              ->  Bitmap Index Scan on idx_claims_recipient  (cost=0.00..4.33 rows=7 width=0) (actual time=0.020..0.021 rows=7 loops=1)
+                    Index Cond: (recipient_id = 101)
+                    Buffers: shared hit=2
+        ->  Index Scan using food_listings_pkey on food_listings fl  (cost=0.29..8.30 rows=1 width=27) (actual time=0.009..0.009 rows=1 loops=7)
+              Index Cond: (listing_id = c.listing_id)
+              Buffers: shared hit=21
+  ->  Index Scan using delivery_logs_claim_id_key on delivery_logs dl  (cost=0.28..7.73 rows=1 width=12) (actual time=0.009..0.009 rows=1 loops=7)
+        Index Cond: (claim_id = c.claim_id)
+        Buffers: shared hit=18
+Planning:
+  Buffers: shared hit=322
+Planning Time: 1.313 ms
+Execution Time: 0.250 ms

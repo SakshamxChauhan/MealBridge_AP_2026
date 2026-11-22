@@ -1,0 +1,71 @@
+--- Run 1 ---
+Limit  (cost=0.29..15.92 rows=20 width=34) (actual time=0.018..0.131 rows=20 loops=1)
+  Buffers: shared hit=181
+  ->  Nested Loop  (cost=0.29..650.49 rows=832 width=34) (actual time=0.017..0.128 rows=20 loops=1)
+        Buffers: shared hit=181
+        ->  Seq Scan on food_listings fl  (cost=0.00..259.00 rows=2500 width=31) (actual time=0.006..0.032 rows=59 loops=1)
+              Filter: ((status)::text = 'AVAILABLE'::text)
+              Rows Removed by Filter: 177
+              Buffers: shared hit=4
+        ->  Memoize  (cost=0.29..0.36 rows=1 width=11) (actual time=0.001..0.001 rows=0 loops=59)
+              Cache Key: fl.donor_id
+              Cache Mode: logical
+              Hits: 0  Misses: 59  Evictions: 0  Overflows: 0  Memory Usage: 5kB
+              Buffers: shared hit=177
+              ->  Index Scan using users_pkey on users u  (cost=0.28..0.35 rows=1 width=11) (actual time=0.001..0.001 rows=0 loops=59)
+                    Index Cond: (user_id = fl.donor_id)
+                    Filter: ((city)::text = 'Sonipat'::text)
+                    Rows Removed by Filter: 1
+                    Buffers: shared hit=177
+Planning:
+  Buffers: shared hit=254
+Planning Time: 0.666 ms
+Execution Time: 0.167 ms
+
+--- Run 2 ---
+Limit  (cost=0.29..15.92 rows=20 width=34) (actual time=0.009..0.068 rows=20 loops=1)
+  Buffers: shared hit=181
+  ->  Nested Loop  (cost=0.29..650.49 rows=832 width=34) (actual time=0.008..0.067 rows=20 loops=1)
+        Buffers: shared hit=181
+        ->  Seq Scan on food_listings fl  (cost=0.00..259.00 rows=2500 width=31) (actual time=0.002..0.018 rows=59 loops=1)
+              Filter: ((status)::text = 'AVAILABLE'::text)
+              Rows Removed by Filter: 177
+              Buffers: shared hit=4
+        ->  Memoize  (cost=0.29..0.36 rows=1 width=11) (actual time=0.001..0.001 rows=0 loops=59)
+              Cache Key: fl.donor_id
+              Cache Mode: logical
+              Hits: 0  Misses: 59  Evictions: 0  Overflows: 0  Memory Usage: 5kB
+              Buffers: shared hit=177
+              ->  Index Scan using users_pkey on users u  (cost=0.28..0.35 rows=1 width=11) (actual time=0.001..0.001 rows=0 loops=59)
+                    Index Cond: (user_id = fl.donor_id)
+                    Filter: ((city)::text = 'Sonipat'::text)
+                    Rows Removed by Filter: 1
+                    Buffers: shared hit=177
+Planning:
+  Buffers: shared hit=264
+Planning Time: 0.361 ms
+Execution Time: 0.093 ms
+
+--- Run 3 ---
+Limit  (cost=0.29..15.92 rows=20 width=34) (actual time=0.007..0.061 rows=20 loops=1)
+  Buffers: shared hit=181
+  ->  Nested Loop  (cost=0.29..650.49 rows=832 width=34) (actual time=0.007..0.060 rows=20 loops=1)
+        Buffers: shared hit=181
+        ->  Seq Scan on food_listings fl  (cost=0.00..259.00 rows=2500 width=31) (actual time=0.002..0.017 rows=59 loops=1)
+              Filter: ((status)::text = 'AVAILABLE'::text)
+              Rows Removed by Filter: 177
+              Buffers: shared hit=4
+        ->  Memoize  (cost=0.29..0.36 rows=1 width=11) (actual time=0.001..0.001 rows=0 loops=59)
+              Cache Key: fl.donor_id
+              Cache Mode: logical
+              Hits: 0  Misses: 59  Evictions: 0  Overflows: 0  Memory Usage: 5kB
+              Buffers: shared hit=177
+              ->  Index Scan using users_pkey on users u  (cost=0.28..0.35 rows=1 width=11) (actual time=0.000..0.000 rows=0 loops=59)
+                    Index Cond: (user_id = fl.donor_id)
+                    Filter: ((city)::text = 'Sonipat'::text)
+                    Rows Removed by Filter: 1
+                    Buffers: shared hit=177
+Planning:
+  Buffers: shared hit=264
+Planning Time: 0.331 ms
+Execution Time: 0.078 ms
