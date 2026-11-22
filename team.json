@@ -1,25 +1,11 @@
 {
+  "team_id": "T0121",
   "team_name": "MealBridge",
+  "project": "Uber Ride-Hailing",
   "members": [
-    {
-      "name": "Samarthya Seth",
-      "roll_number": "2501010658",
-      "github_username": "SAMARTHYASETH"
-    },
-    {
-      "name": "Palak Garg",
-      "roll_number": "2501010316",
-      "github_username": "PalakGarg2402"
-    },
-    {
-      "name": "Saksham Chauhan",
-      "roll_number": "2501010394",
-      "github_username": "SakshamxChauhan"
-    },
-    {
-      "name": "Rama Attri",
-      "roll_number": "2501010621",
-      "github_username": "ramaa25621-art"
-    }
+    {"name": "Rama Attri", "roll": "2501010621", "github": "ramaa25621-art", "role": "Lead"},
+    {"name": "Saksham Chauhan", "roll": "2501010394", "github": "SakshamxChauhan", "role": "Member"},
+    {"name": "Samarthya Seth", "roll": "2501010658", "github": "SAMARTHYASETH", "role": "Member"},
+    {"name": "Palak Garg", "roll": "2501010316", "github": "PalakGarg2402", "role": "Member"}
   ]
 }
